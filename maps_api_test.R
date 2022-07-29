@@ -1,6 +1,56 @@
 library(mapsapi)
 library(xml2)
 library(ggthemes)
+library(RSelenium)
+library(netstat)
+library(tidyverse)
+
+# Grabbing waiting times and names
+rs_driver_object <- rsDriver(browser = 'firefox',
+                             port = free_port(),
+                             verbose = F)
+remDr <- rs_driver_object$client
+remDr$quit()
+remDr$open()
+remDr$navigate("http://www.edwaittimes.ca/WaitTimes.aspx")
+temp <- data.frame()
+count <- 1
+Sys.sleep(10)
+for(i in 3:11){
+  out1 <- remDr$findElement(using = "css", value = paste("#Others_Van > div:nth-child(",i,") > div:nth-child(1) > div:nth-child(2) > p:nth-child(1) > a:nth-child(1)"))
+  out2 <- remDr$findElement(using = "css", value = paste("#Others_Van > div:nth-child(",i,") > div:nth-child(1) > div:nth-child(3) > p:nth-child(1)"))
+  name_of_dept <- as.character(out1$getElementText())
+  wait_time <- as.character(out2$getElementText())
+  temp[count, 1]<- name_of_dept
+  temp[count, 2]<- wait_time
+  count<-count+1
+}
+for(i in 3:4){
+  out1 <- remDr$findElement(using = "css", value = paste("#Others_Rich > div:nth-child(",i,") > div:nth-child(1) > div:nth-child(2) > p:nth-child(1) > a:nth-child(1)"))
+  out2 <- remDr$findElement(using = "css", value = paste("#Others_Rich > div:nth-child(",i,") > div:nth-child(1) > div:nth-child(3) > p:nth-child(1)"))
+  name_of_dept <- as.character(out1$getElementText())
+  wait_time <- as.character(out2$getElementText())
+  temp[count, 1]<- name_of_dept
+  temp[count, 2]<- wait_time
+  count<-count+1
+}
+
+for(i in 3:8){
+  out1 <- remDr$findElement(using = "css", value = paste("#Others_Coast > div:nth-child(",i,") > div:nth-child(1) > div:nth-child(2) > p:nth-child(1) > a:nth-child(1)"))
+  out2 <- remDr$findElement(using = "css", value = paste("#Others_Coast > div:nth-child(",i,") > div:nth-child(1) > div:nth-child(3) > p:nth-child(1)"))
+  name_of_dept <- as.character(out1$getElementText())
+  wait_time <- as.character(out2$getElementText())
+  temp[count, 1]<- name_of_dept
+  temp[count, 2]<- wait_time
+  count<-count+1
+}
+
+remDr$quit()
+
+rs_driver_object$server$stop()
+rm(rs_driver_object, remDr, out1, out2, count, i, name_of_dept, wait_time)
+gc()
+system("taskkill /im java.exe /f", intern=FALSE, ignore.stdout=FALSE)
 
 # Inputting Google Maps API Key
 key = read.delim("C:/Users/suder/Documents/google_maps_api_key.txt")
@@ -74,6 +124,6 @@ for(i in 1:length(final$Origin)){
 }
 
 ggplot(data = final)+
-  geom_tile(mapping = aes(x=final$Origin,y=final$Destination,fill=final$Trip_Duration_s))+
+  geom_tile(mapping = aes(x=Origin,y=Destination,fill=Trip_Duration_s))+
   scale_fill_gradient(low = "red", high = "white")+
-  theme_wsj()
+  theme_solarized()
