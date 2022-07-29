@@ -123,7 +123,39 @@ for(i in 1:length(final$Origin)){
   }
 }
 
-ggplot(data = final)+
-  geom_tile(mapping = aes(x=Origin,y=Destination,fill=Trip_Duration_s))+
-  scale_fill_gradient(low = "red", high = "white")+
-  theme_solarized()
+# Converting time save in seconds to minutes
+final<- mutate(final, Time_Save_m = Trip_Duration_s/60)
+for(i in 1:length(final$Origin)){
+  if(is.na(final$Time_Save_m[i])){
+    final[i,5] <- NA
+  }
+  else{
+    if(final$Time_Save_m[i]==0){
+      final[i,5] <- 0
+    }
+    if(final$Time_Save_m[i]>0){
+      final[i,5] <- 1
+    }
+    if(final$Time_Save_m[i]<0){
+      final[i,5] <- -1
+    }
+  }
+}
+
+#
+tidy_name <- function(name, n_char) {
+  ifelse(nchar(name) > (n_char - 2), 
+         {substr(name, 1, n_char) %>% paste0(., "..")},
+         name)
+}
+final$Origin<- tidy_name(final$Origin, 17)
+final$Destination <- tidy_name(final$Destination, 17)
+
+ggplot(final, aes(x = Origin, y = Destination)) +
+  geom_tile(data = subset(final, !is.na(V5)), aes(fill = V5), alpha = 1, color = "#00000010") +
+  geom_tile(data = subset(final,  is.na(V5)), linetype = 0, fill = "black", alpha = 0.5)+
+  labs(fill = "Efficient Transfer")+
+  ggtitle("Would Hospital Transfers Be Efficient?")+
+  theme_solarized()+
+  theme(panel.grid.major = element_blank(),axis.line.x = element_blank(), axis.text.x = element_text(angle=+90,vjust = 0.5, hjust=1))+
+  scale_fill_gradientn(colors = c("#3078FF",NA,"#FFB730"), labels=c("Yes"," ", "No"), breaks = c(-1,0,1))
