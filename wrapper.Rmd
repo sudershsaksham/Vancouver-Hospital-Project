@@ -9,6 +9,7 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(lubridate)
+library(taskscheduleR)
 ```
 
 ```{r initializing, echo = T}
@@ -22,6 +23,12 @@ write.csv(master_data, "master_data.csv", row.names = F)
 ```
 
 ```{r timeloop, echo = T}
+setwd("~/GitHub/Vancouver-Hospital-Project")
+taskscheduler_create(taskname = "webscraper", rscript = "C:/Users/suder/Documents/GitHub/Vancouver-Hospital-Project/webscraper.R",
+                     schedule = "HOURLY", starttime =  format(Sys.time() + 5, "%H:%M"), modifier = 1)
+
+```
+```{r cleaning, echo= T}
 
 ```
 
@@ -81,10 +88,4 @@ rm(rs_driver_object, remDr, out1, out2)
 gc()
 
 system("taskkill /im java.exe /f", intern=FALSE, ignore.stdout=FALSE)
-```
-
-
-
-
-
 ```

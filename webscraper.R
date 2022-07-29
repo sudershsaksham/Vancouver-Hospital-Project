@@ -56,7 +56,6 @@ remDr$quit()
 rs_driver_object$server$stop()
 rm(rs_driver_object, remDr, out1, out2, count, i, name_of_dept, wait_time)
 gc()
-
 system("taskkill /im java.exe /f", intern=FALSE, ignore.stdout=FALSE)
 
 # Adding to master csv file
