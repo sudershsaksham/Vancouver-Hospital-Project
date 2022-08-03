@@ -159,3 +159,13 @@ ggplot(final, aes(x = Origin, y = Destination)) +
   theme_solarized()+
   theme(panel.grid.major = element_blank(),axis.line.x = element_blank(), axis.text.x = element_text(angle=+90,vjust = 0.5, hjust=1))+
   scale_fill_gradientn(colors = c("#3078FF",NA,"#FFB730"), labels=c("Yes"," ", "No"), breaks = c(-1,0,1))
+
+total_timesave_m <- 0
+for(i in 1:289){
+  if(!is.na(final$Time_Save_m[i])){
+    if(final$V5[i]<0){
+      total_timesave_m <- total_timesave_m+final$Time_Save_m[i]
+    }
+  }
+}
+total_timesave_hr <- total_timesave_m/60
