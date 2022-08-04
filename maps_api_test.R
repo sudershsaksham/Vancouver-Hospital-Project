@@ -80,7 +80,7 @@ for(i in 1:17){
   final<-rbind(final, df_temp)
 }
 
-# Cleaning
+# Cleaning up
 rm(i,locations,xml_api_return,df_temp,j)
 gc()
 
@@ -94,6 +94,16 @@ for(i in 1:length(temp$V1)){
         final$Trip_Duration_s[j] <- NA
       }
     }
+  }
+}
+
+# Changing Richmond Hospital, Vancouver back to original
+for(i in 1:length(final$Origin)){
+  if(final$Origin[i]=="Richmond Hospital, Vancouver"){
+    final$Origin[i] <- temp$V1[9]
+  }
+  if(final$Destination[i]=="Richmond Hospital, Vancouver"){
+    final$Destination[i] <- temp$V1[9]
   }
 }
 
