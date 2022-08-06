@@ -160,7 +160,7 @@ tidy_name <- function(name, n_char) {
 }
 final$Origin<- tidy_name(final$Origin, 17)
 final$Destination <- tidy_name(final$Destination, 17)
-
+count(final$V5)
 ggplot(final, aes(x = Origin, y = Destination)) +
   geom_tile(data = subset(final, !is.na(V5)), aes(fill = V5), alpha = 1, color = "#00000010") +
   geom_tile(data = subset(final,  is.na(V5)), linetype = 0, fill = "black", alpha = 0.5)+
