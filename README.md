@@ -16,8 +16,8 @@ For any patient that seeks ER services, there are 2 times that require waiting b
 In some cases, especially with increasing wait times at particular ERs, it can be helpful for some patients to travel to one that is not the closest, but one that has lesser patients. 
 
 - To scrape the data, A selenium wrapper for R (RSelenium) is used, since the page is non-static. This makes data collection more resource-intensive as compared to gathering from a static source. 
-- All data collected on wait times is stored in the `temp` dataframe in the `maps_api_test.R' file.
-- Google Matrix API is used to find travel times from all ERs to all other ERs, stored as `final` in the `maps_api_test.R' file. This, combined with the wait times at each ER, allows us to see which 'transfers' (travel from one ER to the other) would be 'efficient' (would save time).
+- All data collected on wait times is stored in the `temp` dataframe in the `maps_api_test.R` file.
+- Google Matrix API is used to find travel times from all ERs to all other ERs, stored as `final` in the `maps_api_test.R` file. This, combined with the wait times at each ER, allows us to see which 'transfers' (travel from one ER to the other) would be 'efficient' (would save time).
 
 ### Further Research and Applications
 
