@@ -5,7 +5,7 @@ The Vancouver Emergency Room Wait Times Research Project was undertaken to answe
 1. Are Healthcare Resources (specifically, ER) allocated efficiently?
 2. Can patients self-allocate to ER to save time and lower staff requirements? If so, how much time is saved?
 
-This repository includes R Codes and Example Data to help scrape ER wait times across Vancouver, as well as analyse and approximate wait time reduction if the system was made efficient. This approximation is rudimentary and only serves to help understand the massive costs to inefficient self-distribution of patients. 
+This repository includes R Codes and Example Data to help scrape ER wait times across Vancouver, as well as analyse and approximate wait time reduction if the system was made efficient. This approximation is rudimentary and only serves to help understand the massive costs to inefficient self-distribution of patients. For a writeup and the conclusion from the initial results, please check <a href="https://sudershsaksham.github.io/van_ER.html">my blog</a>.
 
 ### Logic
 
