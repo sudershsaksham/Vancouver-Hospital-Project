@@ -52,13 +52,20 @@ rm(rs_driver_object, remDr, out1, out2, count, i, name_of_dept, wait_time)
 gc()
 system("taskkill /im java.exe /f", intern=FALSE, ignore.stdout=FALSE)
 
+
 # Inputting Google Maps API Key
 key = read.delim("C:/Users/suder/Documents/google_maps_api_key.txt")
+
+# PUT IN KEY HERE DIRECTLY
 key <- colnames(key)
+
+
 temp<- arrange(temp, V1)
 locations <- temp$V1
 # Adding ", Vancouver" to "Richmond Hospital" to clarify for Google Distance Matrix API
 locations[9] <- "Richmond Hospital, Vancouver"
+
+
 final <- data.frame()
 
 # Creating Long data frame while pulling data with Distance Matrix API used for duration
