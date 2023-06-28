@@ -59,7 +59,7 @@ gc()
 system("taskkill /im java.exe /f", intern=FALSE, ignore.stdout=FALSE)
 
 # Adding to master csv file
-setwd("~/GitHub/Vancouver-Hospital-Project")
+setwd("~/GitHub/Vancouver-Hospital-Project/Example Data")
 master_data <- read.csv("master_data.csv")
 temp<- arrange(temp, V1)
 temp<- mutate(temp, Date=as.character(Sys.time()))

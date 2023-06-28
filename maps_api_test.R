@@ -133,7 +133,7 @@ for(i in 1:length(final$Origin)){
   }
 }
 
-# Converting time save in seconds to minutes
+# Converting time save in seconds to an identifier if time was saved or not
 final<- mutate(final, Time_Save_m = Trip_Duration_s/60)
 for(i in 1:length(final$Origin)){
   if(is.na(final$Time_Save_m[i])){
@@ -170,6 +170,7 @@ ggplot(final, aes(x = Origin, y = Destination)) +
   theme(panel.grid.major = element_blank(),axis.line.x = element_blank(), axis.text.x = element_text(angle=+90,vjust = 0.5, hjust=1))+
   scale_fill_gradientn(colors = c("#3078FF",NA,"#FFB730"), labels=c("Yes"," ", "No"), breaks = c(-1,0,1))
 
+# Calculating total time to be saved if the transfer were executed THIS moment
 total_timesave_m <- 0
 for(i in 1:289){
   if(!is.na(final$Time_Save_m[i])){
